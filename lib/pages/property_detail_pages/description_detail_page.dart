@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:exam2/model/apartmendt_model.dart';
 import 'package:exam2/pages/property_detail_pages/description_bar.dart';
 import 'package:exam2/pages/property_detail_pages/gallery_bar.dart';
@@ -20,6 +22,11 @@ class _DescriptionDetailPageState extends State<DescriptionDetailPage>
   bool checkFavorite = false;
   late TabController _tabController;
 
+  int _tabIndex = 0;
+  String _changeBackroundImage = "";
+  bool isTabbedCard = true;
+  double heightSize = 10;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -30,6 +37,10 @@ class _DescriptionDetailPageState extends State<DescriptionDetailPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      _tabIndex = _tabController.index;
+      setState(() {});
+    });
   }
 
   @override
@@ -37,6 +48,65 @@ class _DescriptionDetailPageState extends State<DescriptionDetailPage>
     _tabController.dispose();
     super.dispose();
   }
+
+  void _toggleSize() {
+    setState(() {
+      if (isTabbedCard) {
+        heightSize = 100;
+        isTabbedCard = false;
+      } else {
+        heightSize = 10;
+        isTabbedCard = true;
+      }
+    });
+  }
+
+  void _showMoreImages() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 400,
+          padding: const EdgeInsets.all(16.0),
+          child: GridView.builder(
+            itemCount: _images.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _changeBackroundImage = _images[index];
+                  });
+                  Navigator.pop(context);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(_images[index], fit: BoxFit.cover),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  List<String> _images = [
+    "assets/images/room2.png",
+    "assets/images/room3.png",
+    "assets/images/room1.png",
+    "assets/images/room5.png",
+    "assets/images/home2.png",
+    "assets/images/home1.png",
+    "assets/images/home3.png",
+    "assets/images/home4.png",
+    "assets/images/home5.png",
+    "assets/images/home6.png",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +121,109 @@ class _DescriptionDetailPageState extends State<DescriptionDetailPage>
             expandedHeight: screenH * 0.5,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                apartmendtModelList[index!].image,
-                fit: BoxFit.cover,
+              background: Container(
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  image: DecorationImage(
+                    image: AssetImage(
+                      _changeBackroundImage.isEmpty
+                          ? apartmendtModelList[index!].image
+                          : _changeBackroundImage,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _tabIndex != 0
+                        ? Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Container(
+                              height: screenH * 0.1,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                color: Colors.grey.withOpacity(0.8),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ListView.separated(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 10.0),
+                                      scrollDirection: Axis.horizontal,
+                                      separatorBuilder: (context, index) =>
+                                          const Gap(10.0),
+                                      itemCount: 4,
+                                      itemBuilder: (_, i) {
+                                        if (i < 3) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              _changeBackroundImage =
+                                                  _images[i];
+                                              setState(() {});
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              child: Image.asset(_images[i]),
+                                            ),
+                                          );
+                                        } else {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              _showMoreImages();
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                      _images[3],
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: BackdropFilter(
+                                                  filter: ImageFilter.blur(
+                                                    sigmaX: 0.8,
+                                                    sigmaY: 0.8,
+                                                  ),
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.all(
+                                                      25.0,
+                                                    ),
+                                                    child: Text(
+                                                      "More",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                    const Gap(25.0),
+                  ],
+                ),
               ),
             ),
             leading: IconButton.filled(
