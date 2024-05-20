@@ -1,6 +1,5 @@
 import 'package:exam2/pages/entries_pages/onoarding_screen.dart';
 import 'package:exam2/utils/my_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -13,7 +12,6 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          // SvgPicture.asset('assets/svg/splash_screen.svg'),
           Image.asset("assets/images/splash_screen.png"),
           SvgPicture.asset("assets/svg/logo.svg"),
           const Gap(40.0),

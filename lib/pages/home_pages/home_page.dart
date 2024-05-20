@@ -3,6 +3,7 @@ import 'package:exam2/model/category_model.dart';
 import 'package:exam2/model/favorite_model_selected.dart';
 import 'package:exam2/model/recomended_model.dart';
 import 'package:exam2/pages/home_pages/filter_page.dart';
+import 'package:exam2/pages/property_detail_pages/description_detail_page.dart';
 import 'package:exam2/utils/my_colors.dart';
 import 'package:exam2/widgets/recomended_widget.dart';
 import 'package:exam2/widgets/search_field.dart';
@@ -27,8 +28,6 @@ class _HomePageState extends State<HomePage> {
     double screenW = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 0,
-        leading: const SizedBox(),
         surfaceTintColor: Colors.white,
         toolbarHeight: 100,
         title: const Column(
@@ -143,7 +142,7 @@ class _HomePageState extends State<HomePage> {
             const Gap(25.0),
             //? Start Container information section
             SizedBox(
-              height: 340,
+              height: 380,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 scrollDirection: Axis.horizontal,
@@ -334,7 +333,13 @@ class _HomePageState extends State<HomePage> {
                     title: apartmendtModelList[i].title,
                     onTap: () {
                       // print(i);
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ))
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DescriptionDetailPage(),
+                          settings: RouteSettings(arguments: i),
+                        ),
+                      );
                     },
                   ),
               ],

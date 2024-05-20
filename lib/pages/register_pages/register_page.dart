@@ -1,10 +1,8 @@
 import 'package:exam2/pages/register_pages/log_in_page.dart';
-import 'package:exam2/widgets/dialog_box.dart';
 import 'package:exam2/widgets/forms/password_form.dart';
 import 'package:exam2/widgets/forms/user_form.dart';
 import 'package:exam2/widgets/register_button.dart';
 import 'package:exam2/widgets/register_from_web.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';

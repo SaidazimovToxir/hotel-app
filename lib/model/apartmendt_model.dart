@@ -17,23 +17,23 @@ List<ApartmendtModel> apartmendtModelList = [
     title: "Woodline Apartment",
   ),
   ApartmendtModel(
-    image: "assets/images/home_near.png",
-    starCount: "2",
+    image: "assets/images/apartment.png",
+    starCount: "2.6",
     title: "Apartment",
   ),
   ApartmendtModel(
     image: "assets/images/home_near.png",
-    starCount: "5",
+    starCount: "5.6",
     title: "kvartira",
   ),
   ApartmendtModel(
-    image: "assets/images/home_near.png",
-    starCount: "3",
+    image: "assets/images/apartment.png",
+    starCount: "3.4",
     title: "Honadon",
   ),
   ApartmendtModel(
     image: "assets/images/home_near.png",
-    starCount: "2",
+    starCount: "2.8",
     title: "Uy",
   ),
 ];

@@ -39,8 +39,16 @@ class MyRecomededContainer extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  image,
+                child: ClipRRect(
+                  clipBehavior: Clip.hardEdge,
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: SizedBox(
+                    width: screenW * 0.23,
+                    child: Image.asset(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               const Gap(10.0),

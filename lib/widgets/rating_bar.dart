@@ -1,43 +1,5 @@
 import 'package:flutter/material.dart';
 
-class RatingBar extends StatefulWidget {
-  const RatingBar({Key? key}) : super(key: key);
-
-  @override
-  State<RatingBar> createState() => _RatingBarState();
-}
-
-class _RatingBarState extends State<RatingBar> {
-  int _rating = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Rating bar"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StarDisplayWidget(
-              value: _rating,
-              onValueChanged: (value) {
-                setState(() {
-                  _rating = value;
-                });
-              },
-              filledStar: Icon(Icons.favorite, color: Colors.yellow),
-              unfilledStar: Icon(Icons.favorite_border, color: Colors.grey),
-            ),
-            SizedBox(height: 20),
-            Text("Current Rating: $_rating"),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class StarDisplayWidget extends StatefulWidget {
   final int value;

@@ -1,8 +1,6 @@
-import 'package:exam2/pages/home_pages/home_page.dart';
 import 'package:exam2/pages/main_controller_page.dart';
 import 'package:exam2/widgets/forms/user_form.dart';
 import 'package:exam2/widgets/register_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -155,16 +153,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   MyButton(
                       title: "Complete profile",
                       onPressed: () {
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const MainControllerPage(),
-                        //   ),
-                        // );
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                             builder: (context) => MainControllerPage(),
                           ),
+                          (Route<dynamic> route) => false,
                         );
                       }),
                 ],
